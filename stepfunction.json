@@ -1,0 +1,29 @@
+{
+  "Comment": "A Hello World example demonstrating various state types of the Amazon States Language",
+  "StartAt": "Pass",
+  "States": {
+    "Pass": {
+      "Comment": "A Pass state passes its input to its output, without performing work. Pass states are useful when constructing and debugging state machines.",
+      "Type": "Pass",
+      "Next": "Yes"
+    },
+    "Yes": {
+      "Type": "Pass",
+      "Next": "Wait 3 sec"
+    },
+    "Wait 3 sec": {
+      "Comment": "A Wait state delays the state machine from continuing for a specified time.",
+      "Type": "Wait",
+      "Seconds": 3,
+      "Next": "CreateWorkflow"
+    },
+    "CreateWorkflow": {
+      "Type": "Task",
+      "Parameters": {
+        "Name": "alm-workflow"
+      },
+      "Resource": "arn:aws:states:::aws-sdk:glue:createWorkflow",
+      "End": true
+    }
+  }
+}
